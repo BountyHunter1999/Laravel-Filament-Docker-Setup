@@ -1,4 +1,4 @@
-# Laravel-Filament-Docker-Setup
+# Docker Crash Course
 
 This guide will serve as the basis for educational purposes within the organization, and in no way, shape, or form should be used in production setup. It will be used to provide a basic understanding of the tooling used and how one can incorporate the information/knowledge gained within their own project
 
@@ -98,6 +98,15 @@ Networks allow containers to communicate with each other:
     ```
 -   **Host Network**: Use when containers need direct access to host networking
 -   **None Network**: When containers need complete network isolation
+
+### Types of communication
+
+1. Host to Container: Here, we expose container port to host port. `docker run --name my-app -p <host-port>:<container-port> my-app`
+2. Container to Container: Here, we connect two containers to the same network. `docker network connect my-network my-other-app`
+    - Here, `my-other-app` will be able to access `my-app` using it's name as hostname
+3. Container to Host: Here, we expose container port to host port. `docker run -p 8000:80 my-app`
+    - To access the host services from within container we can use `host.docker.internal` as hostname.
+        - `host.docker.internal` is a special DNS name that resolves to the host machine's IP address.
 
 ## Environment Variables
 
