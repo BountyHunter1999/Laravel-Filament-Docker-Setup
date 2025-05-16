@@ -1,11 +1,15 @@
+run_application:
+	cp .env.example .env
+	UID=$$(id -u) GID=$$(id -g) docker compose up -d --build
+
 start_simple_nginx:
-	docker run --rm -d -p 8080:80 -v $$(pwd):/usr/share/nginx/html nginx:latest
+	docker run --rm -d -p 8080:80 nginx:latest
 
 simple_network_example:
 	docker rm -f nginx_server curl_client || true
 	docker network rm simple_network || true
 	docker network create simple_network
-	@echo '<h1>Hello World</h1>' > hello.html    
+	@echo '<h1>Hello World</h1>' > hello.html
 	docker run -d --name nginx_server -v $$(pwd)/hello.html:/usr/share/nginx/html/index.html --network simple_network nginx:latest
 	@echo " $$(tput setaf 1) I will now start curl client $$(tput sgr0)"
 	docker run -it --name curl_client --network simple_network alpine:latest sh -c "apk add curl && curl -s http://nginx_server"
