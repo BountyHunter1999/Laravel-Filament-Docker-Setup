@@ -55,6 +55,8 @@ RUN docker-php-ext-install \
 RUN pecl install redis \
     && docker-php-ext-enable redis
 
+RUN delgroup dialout
+
 # Create a user with the same UID/GID as the host user
 # This solves permission issues between host and container
 RUN groupadd -g ${HOST_GID} laravel && \
@@ -92,6 +94,5 @@ RUN npm install && npm run build
 # This will be connected to Nginx or another web server
 EXPOSE 9000
 
-# Start PHP-FPM server in foreground
-CMD ["sh", "-c", "php artisan migrate && php-fpm"]
-
+# Start PHP-FPM server i foreground
+CMD ["sh", "-c", "composer install && php artisan migrate && php-fpm"]
