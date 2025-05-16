@@ -49,7 +49,7 @@ install_filament:
 	docker compose exec app php artisan make:filament-user
 	echo "Needed to do this for this error: $$(tput setaf 1)The POST method is not supported for route admin/login. Supported methods: GET, HEAD$$(tput sgr0)"
 	docker compose exec app php artisan vendor:publish --force --tag=livewire:assets
-	echo "Visit the site at http://localhost:8000/admin"
+	@echo "Visit the site at http://localhost/admin"
 
 see_connected_db:
 	docker compose exec app php artisan db:monitor
