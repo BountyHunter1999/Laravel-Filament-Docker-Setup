@@ -41,3 +41,13 @@ setup_project:
 	sudo chown -R $$(id -un):$$(id -gn) chirper
 	mv -v chirper/* chirper/.[!.]* .
 	rm -rf chirper
+
+
+install_filament:
+	docker compose exec app composer require filament/filament
+	docker compose exec app php artisan filament:install --panels
+	docker compose exec app php artisan make:filament-user
+	echo "Visit the site at http://localhost:8000/admin"
+
+see_connected_db:
+	docker compose exec app php artisan db:monitor

@@ -36,6 +36,8 @@ RUN docker-php-ext-install \
     # Database drivers for MySQL and PostgreSQL
     pdo \
     pdo_pgsql \
+    # MySQL development libraries
+    pdo_mysql \
     # ZIP extension for Composer package handling
     zip \
     # BCMath for arbitrary precision mathematics
@@ -89,10 +91,6 @@ RUN npm install && npm run build
 # Expose port 9000 for PHP-FPM
 # This will be connected to Nginx or another web server
 EXPOSE 9000
-
-## TODO: Add mysql driver
-# RUN apt-get install pdo_mysql libmysql-dev
-
 
 # Start PHP-FPM server in foreground
 CMD ["sh", "-c", "php artisan migrate && php-fpm"]
