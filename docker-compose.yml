@@ -9,6 +9,12 @@ services:
         HOST_GID: ${GID:-1000}
     volumes:
       - .:/var/www/html
+    healthcheck:
+      test: ["CMD", "php-fpm", "-t"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
     ports:
       - "8000:80"
     depends_on:

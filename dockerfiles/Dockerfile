@@ -95,5 +95,5 @@ EXPOSE 9000
 
 
 # Start PHP-FPM server in foreground
-CMD ["php-fpm"]
+CMD ["sh", "-c", "php artisan migrate && php-fpm"]
 
